@@ -1,0 +1,40 @@
+<div class="blog-hero">
+  <div class="container">
+    <h1>Draft Blog Posts</h1>
+    <p>Unpublished blog posts that are still in draft mode</p>
+    <div class="hero-nav">
+      <a href="/blog" class="btn btn-home">← Back to Published Posts</a>
+      <a href="/blog/new" class="btn btn-admin">+ Create New Post</a>
+    </div>
+  </div>
+</div>
+
+<div class="blog-content">
+  <div class="container">
+    <div class="blog-posts">
+      <% if @blog_posts.any? %>
+        <% @blog_posts.each do |post| %>
+          <article class="blog-post draft-post">
+            <div class="draft-badge">DRAFT</div>
+            <h2><%= post.title %></h2>
+            <p class="post-meta">Created <%= post.created_at.strftime("%B %d, %Y") %> by <%= post.user.email %></p>
+            <p><%= truncate(post.content, length: 200, separator: ' ') %></p>
+            <div class="post-actions">
+              <a href="<%= edit_blog_post_path(post) %>" class="btn btn-primary">Edit Draft</a>
+              <a href="<%= blog_post_path(post) %>" class="read-more">Preview</a>
+            </div>
+          </article>
+        <% end %>
+      <% else %>
+        <article class="blog-post">
+          <h2>No Draft Posts</h2>
+          <p class="post-meta">All posts are published</p>
+          <p>You don't have any unpublished blog posts at the moment. All your posts are live and published!</p>
+          <div class="post-actions">
+            <a href="/blog/new" class="btn btn-primary">Create New Post</a>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  </div>
+</div>

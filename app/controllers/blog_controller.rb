@@ -1,6 +1,6 @@
 class BlogController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :ensure_admin!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :unpublished]
+  before_action :ensure_admin!, only: [:new, :create, :unpublished]
   before_action :find_blog_post, only: [:show, :edit, :update]
   before_action :ensure_owner!, only: [:edit, :update]
   
@@ -8,9 +8,19 @@ class BlogController < ApplicationController
     @blog_posts = BlogPost.published.recent
   end
   
+  def unpublished
+    @blog_posts = BlogPost.unpublished.recent.includes(:user)
+  end
+  
   def show
     # @blog_post is set by before_action :find_blog_post
-    redirect_to blog_path, alert: 'Blog post not found.' unless @blog_post&.published?
+    unless @blog_post&.published?
+      # Allow unpublished posts to be viewed by their owner or admins
+      unless user_signed_in? && (current_user == @blog_post.user || current_user.admin?)
+        redirect_to blog_path, alert: 'Blog post not found.'
+        return
+      end
+    end
   end
   
   def new

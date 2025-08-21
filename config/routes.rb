@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   # Blog routes
   get "blog", to: "blog#index"
   get "blog/new", to: "blog#new"
+  get "blog/drafts", to: "blog#unpublished", as: "unpublished_blog_posts"
   post "blog", to: "blog#create"
   get "blog/:id", to: "blog#show", as: "blog_post"
   get "blog/:id/edit", to: "blog#edit", as: "edit_blog_post"

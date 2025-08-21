@@ -1,11 +1,25 @@
 <div class="blog-hero">
   <div class="container">
+    <% unless @blog_post.published? %>
+      <div class="draft-preview-notice">
+        <strong>DRAFT PREVIEW</strong> - This post is not published yet
+      </div>
+    <% end %>
     <h1><%= @blog_post.title %></h1>
-    <p class="post-meta">Published <%= @blog_post.created_at.strftime("%B %d, %Y") %> by <%= @blog_post.user.email %></p>
+    <p class="post-meta">
+      <% if @blog_post.published? %>
+        Published <%= @blog_post.created_at.strftime("%B %d, %Y") %> by <%= @blog_post.user.email %>
+      <% else %>
+        Draft created <%= @blog_post.created_at.strftime("%B %d, %Y") %> by <%= @blog_post.user.email %>
+      <% end %>
+    </p>
     <div class="hero-nav">
       <a href="/blog" class="btn btn-home">← Back to Blog</a>
       <% if user_signed_in? && current_user == @blog_post.user %>
         <a href="<%= edit_blog_post_path(@blog_post) %>" class="btn btn-admin">Edit Post</a>
+      <% end %>
+      <% if user_signed_in? && current_user.admin? && !@blog_post.published? %>
+        <a href="<%= unpublished_blog_posts_path %>" class="btn btn-secondary">Back to Drafts</a>
       <% end %>
     </div>
   </div>

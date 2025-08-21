@@ -225,6 +225,25 @@
   }
 }
 
+.btn-secondary {
+  background-color: rgba(108, 117, 125, 0.9);
+  border: 2px solid rgba(108, 117, 125, 0.9);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+  
+  &:hover {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    text-decoration: none;
+    transform: translateY(-2px);
+  }
+}
+
 .blog-content {
   padding: 4rem 0;
   
@@ -607,5 +626,46 @@
     &:hover {
       color: #764ba2;
     }
+  }
+}
+
+// Draft posts styling
+.draft-post {
+  position: relative;
+  border: 2px dashed #ffc107;
+  background-color: #fffbf0;
+  
+  &:hover {
+    border-color: #ff9800;
+    background-color: #fff8e1;
+  }
+}
+
+.draft-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #ffc107;
+  color: #212529;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.draft-preview-notice {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  
+  strong {
+    font-weight: 700;
   }
 }
