@@ -1,0 +1,28 @@
+<div class="blog-hero">
+  <div class="container">
+    <h1><%= @blog_post.title %></h1>
+    <p class="post-meta">Published <%= @blog_post.created_at.strftime("%B %d, %Y") %> by <%= @blog_post.user.email %></p>
+    <div class="hero-nav">
+      <a href="/blog" class="btn btn-home">← Back to Blog</a>
+      <% if user_signed_in? && current_user == @blog_post.user %>
+        <a href="<%= edit_blog_post_path(@blog_post) %>" class="btn btn-admin">Edit Post</a>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="blog-show-content">
+  <div class="container">
+    <article class="blog-post-full">
+      <div class="post-content">
+        <%= markdown(@blog_post.content) %>
+      </div>
+      
+      <div class="post-footer">
+        <div class="post-navigation">
+          <a href="/blog" class="nav-link">← Back to All Posts</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="blog-hero">
+  <div class="container">
+    <h1>Create New Blog Post</h1>
+    <p>Write your thoughts and share them with the world</p>
+    <div class="hero-nav">
+      <a href="/blog" class="btn btn-home">← Back to Blog</a>
+    </div>
+  </div>
+</div>
+
+<div class="blog-form-content">
+  <div class="container">
+    <div class="form-container">
+      <%= form_with model: @blog_post, url: blog_path, class: "blog-form" do |f| %>
+        <% if @blog_post.errors.any? %>
+          <div class="error-messages">
+            <h4><%= pluralize(@blog_post.errors.count, "error") %> prohibited this post from being saved:</h4>
+            <ul>
+              <% @blog_post.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        
+        <div class="form-group">
+          <%= f.label :title, class: "form-label" %>
+          <%= f.text_field :title, class: "form-control", placeholder: "Enter your blog post title..." %>
+        </div>
+        
+        <div class="form-group">
+          <%= f.label :content, "Content (Markdown supported)", class: "form-label" %>
+          <%= f.text_area :content, class: "form-control markdown-editor", rows: 15, placeholder: "Write your blog post content here...\n\nYou can use Markdown formatting:\n# Heading 1\n## Heading 2\n**Bold text**\n*Italic text*\n- List item\n[Link](https://example.com)\n```\nCode block\n```" %>
+          <small class="form-text">You can use Markdown formatting for rich text content.</small>
+        </div>
+        
+        <div class="form-group">
+          <div class="form-check">
+            <%= f.check_box :published, class: "form-check-input" %>
+            <%= f.label :published, "Publish immediately", class: "form-check-label" %>
+          </div>
+          <small class="form-text">Uncheck to save as draft</small>
+        </div>
+        
+        <div class="form-actions">
+          <%= f.submit "Create Blog Post", class: "btn btn-primary" %>
+          <a href="/blog" class="btn btn-secondary">Cancel</a>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

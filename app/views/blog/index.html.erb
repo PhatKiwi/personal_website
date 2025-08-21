@@ -4,6 +4,9 @@
     <p>Thoughts, insights, and stories from my journey in tech</p>
     <div class="hero-nav">
       <a href="/" class="btn btn-home">← Back to Home</a>
+      <% if user_signed_in? && current_user.admin? %>
+        <a href="/blog/new" class="btn btn-admin">+ Create New Post</a>
+      <% end %>
     </div>
   </div>
 </div>
@@ -18,7 +21,7 @@
             <p class="post-meta">Published <%= post.created_at.strftime("%B %d, %Y") %> by <%= post.user.email %></p>
             <p><%= truncate(post.content, length: 200, separator: ' ') %></p>
             <div class="post-actions">
-              <a href="#" class="read-more">Read More</a>
+              <a href="<%= blog_post_path(post) %>" class="read-more">Read More</a>
             </div>
           </article>
         <% end %>

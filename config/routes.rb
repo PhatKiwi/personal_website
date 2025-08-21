@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
   
-  # Blog route
+  # Blog routes
   get "blog", to: "blog#index"
+  get "blog/new", to: "blog#new"
+  post "blog", to: "blog#create"
+  get "blog/:id", to: "blog#show", as: "blog_post"
+  get "blog/:id/edit", to: "blog#edit", as: "edit_blog_post"
+  patch "blog/:id", to: "blog#update"
 end
